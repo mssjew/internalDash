@@ -632,25 +632,22 @@ filteredData.forEach((item) => {
 // });
 
 
+// filteredData.forEach((item) => {
+//     const date = item.date.split('/');
+//     const day = parseInt(date[0]);
+//     const month = parseInt(date[1]-1);
+//     const year = parseInt(date[2]);
+//     const time = item.time.split(':');
+//     const hours = parseInt(time[0]);
+//     const minutes = parseInt(time[1]);
+//     const seconds = parseInt(time[2]);
+//     const dateTime = new Date(year, month, day, hours, minutes, seconds);
+//     const now = new Date();
+//     if (dateTime < now) {
+//         item.title = `<s>${item.title}</s>`;
 
-// if a time and date is in the past then make the formatting strikethrough
-filteredData.forEach((item) => {
-    const date = item.date.split('/');
-    const day = parseInt(date[0]);
-    const month = parseInt(date[1]-1);
-    const year = parseInt(date[2]);
-    const time = item.time.split(':');
-    const hours = parseInt(time[0]);
-    const minutes = parseInt(time[1]);
-    const seconds = parseInt(time[2]);
-    const dateTime = new Date(year, month, day, hours, minutes, seconds);
-    const now = new Date();
-    if (dateTime < now) {
-        item.title = `<s>${item.title}</s>`;
-
-    }
-});
-
+//     }
+// });
 
 
 
@@ -664,6 +661,30 @@ filteredData.forEach((item) => {
     date.setHours(date.getHours() + 8);
     item.time = date.toLocaleTimeString();
 });
+
+// if a time and date is in the past then make the formatting strikethrough and light gray color text
+filteredData.forEach((item) => {
+    const date = item.date.split('/');
+    const day = parseInt(date[0]);
+    const month = parseInt(date[1]-1);
+    const year = parseInt(date[2]);
+    const time = item.time.split(':');
+    const hours = parseInt(time[0]);
+    const minutes = parseInt(time[1]);
+    const seconds = parseInt(time[2]);
+    const dateTime = new Date(year, month, day, hours, minutes, seconds);
+    const now = new Date();
+    if (dateTime < now) {
+        item.title = `<s style="color:gray">${item.title}</s>`;
+        item.date = `<s style="color:gray">${item.date}</s>`;
+        item.time = `<s style="color:gray">${item.time}</s>`;
+    }}
+);
+
+
+
+
+
 
 
 

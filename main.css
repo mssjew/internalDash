@@ -162,8 +162,9 @@ h2 {
 }
 
 p {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-family: monospace;
+    line-height: 1.5;
 }
 
 .mondayData, .tuesdayData, .wednesdayData, .thursdayData, .fridayData, .calendarItem{
