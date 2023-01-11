@@ -152,9 +152,30 @@ body {
 h1 {
     font-family: monospace;
     font-size: 2rem;
+    text-align: center;
+    margin-top: 20px;
+}
+
+h2 {
+    font-family: monospace;
+    font-size: 1.6rem;
 }
 
 p {
     font-size: 1.5rem;
     font-family: monospace;
+}
+
+.mondayData, .tuesdayData, .wednesdayData, .thursdayData, .fridayData, .calendarItem{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.dayHeader {
+    font-weight: bold;
+    text-decoration: underline;
+    font-size: 2.2rem;
 }

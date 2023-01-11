@@ -562,10 +562,10 @@ const newsData = [
     ];
 
 
-
-
-// filter the data array and return only values that match USD and are high impact
-const filteredData = newsData.filter((item) => item.country === 'USD' && item.impact === 'High');
+// filter the data array and return only values that match USD and are high impact or medium impact
+const filteredData = newsData.filter((item) => {
+    return item.country === 'USD' && (item.impact === 'High' || item.impact === 'Medium');
+});
 
 console.log(filteredData);
 
@@ -576,6 +576,8 @@ filteredData.forEach((item) => {
     item.date = date[0];
     item.time = date[1];
 });
+
+
 
 console.log(filteredData);
 
@@ -597,6 +599,17 @@ filteredData.forEach((item) => {
     const month = date[1];
     const day = date[2];
     item.date = `${day}/${month}/${year}`;
+});
+
+//get the day of the week from the date string and add it as a new property
+filteredData.forEach((item) => {
+    const date = item.date.split('/');
+    const day = parseInt(date[0]);
+    const month = parseInt(date[1]-1);
+    const year = parseInt(date[2]);
+    const dateTime = new Date(year, month, day);
+    const dayOfWeek = dateTime.toLocaleDateString('en-GB', {weekday: 'long'});
+    item.dayOfWeek = dayOfWeek;
 });
 
 
@@ -654,15 +667,147 @@ filteredData.forEach((item) => {
 
 
 
+// separate data into arrays for each day of the week
+const monday = filteredData.filter((item) => {
+    return item.dayOfWeek === 'Monday';
+});
+const tuesday = filteredData.filter((item) => {
+    return item.dayOfWeek === 'Tuesday';
+});
+const wednesday = filteredData.filter((item) => {
+    return item.dayOfWeek === 'Wednesday';
+});
+const thursday = filteredData.filter((item) => {
+    return item.dayOfWeek === 'Thursday';
+});
+const friday = filteredData.filter((item) => {
+    return item.dayOfWeek === 'Friday';
+});
 
 
 const calendarDiv = document.getElementById('calendarData');
+const mondayData = document.getElementById('mondayData');
+const tuesdayData = document.getElementById('tuesdayData');
+const wednesdayData = document.getElementById('wednesdayData');
+const thursdayData = document.getElementById('thursdayData');
+const fridayData = document.getElementById('fridayData');
 
 //insert all data of filteredData object into the calendarDiv
-filteredData.forEach((item) => {
-    const div = document.createElement('div');
-    div.className = 'calendarItem';
-    div.innerHTML = `<br><br><p>${item.title}</p><p>${item.date}</p><p>${item.time}</p><br><hr><br>`;
+// filteredData.forEach((item) => {
+//     const div = document.createElement('div');
+//     div.className = 'calendarItem';
+//     div.innerHTML = `<br><br><p>${item.title}</p><p>${item.date}</p><p>${item.time}</p><br><hr><br>`;
 
-    calendarDiv.appendChild(div);
-});
+//     calendarDiv.appendChild(div);
+// });
+
+
+// <sl-badge variant="danger">Danger</sl-badge>
+// <sl-badge variant="warning">Warning</sl-badge>
+
+
+//insert all data of filteredData object into the calendarDiv and add a danger badge if high impact and warning badge if medium impact
+// filteredData.forEach((item) => {
+//     const div = document.createElement('div');
+//     div.className = 'calendarItem';
+//     if (item.impact === 'High') {
+//         div.innerHTML = `<br><br><sl-badge variant="danger">High</sl-badge><p>${item.title}</p><p>${item.date}</p><p>${item.time}</p><br><hr>`;
+//     } else if (item.impact === 'Medium') {
+//         div.innerHTML = `<br><br><sl-badge variant="warning">Medium</sl-badge><p>${item.title}</p><p>${item.date}</p><p>${item.time}</p><br><hr>`;
+//     }
+
+//     calendarDiv.appendChild(div);
+// });
+
+
+//insert monday data into mondayData div and add a danger badge if high impact and warning badge if medium impact, if the array is empty enter a message saying no data
+if (monday.length === 0) {
+    const div = document.createElement('div');
+    div.classList.add('calendarItem');
+    div.innerHTML = `<br><br><p>No events.</p><br><hr>`;
+    mondayData.appendChild(div);
+} else {
+    monday.forEach((item) => {
+        const div = document.createElement('div');
+        div.classList.add('calendarItem');
+        if (item.impact === 'High') {
+            div.innerHTML = `<br><br><sl-badge variant="danger">High</sl-badge><p>${item.title}</p><p>${item.date}</p><p>${item.time}</p><br><hr>`;
+        } else if (item.impact === 'Medium') {
+            div.innerHTML = `<br><br><sl-badge variant="warning">Medium</sl-badge><p>${item.title}</p><p>${item.date}</p><p>${item.time}</p><br><hr>`;
+        }
+        mondayData.appendChild(div);
+    });
+}
+
+
+if(tuesday.length === 0) {
+    const div = document.createElement('div');
+    div.classList.add('calendarItem');
+    div.innerHTML = `<br><br><p>No events.</p><br><hr>`;
+    tuesdayData.appendChild(div);
+} else {
+    tuesday.forEach((item) => {
+        const div = document.createElement('div');
+        div.classList.add('calendarItem');
+        if (item.impact === 'High') {
+            div.innerHTML = `<br><br><sl-badge variant="danger">High</sl-badge><p>${item.title}</p><p>${item.date}</p><p>${item.time}</p><br><hr>`;
+        } else if (item.impact === 'Medium') {
+            div.innerHTML = `<br><br><sl-badge variant="warning">Medium</sl-badge><p>${item.title}</p><p>${item.date}</p><p>${item.time}</p><br><hr>`;
+        }
+        tuesdayData.appendChild(div);
+    });
+}
+
+if(wednesday.length === 0) {
+    const div = document.createElement('div');
+    div.classList.add('calendarItem');
+    div.innerHTML = `<br><br><p>No events.</p><br><hr>`;
+    wednesdayData.appendChild(div);
+} else {
+    wednesday.forEach((item) => {
+        const div = document.createElement('div');
+        div.classList.add('calendarItem');
+        if (item.impact === 'High') {
+            div.innerHTML = `<br><br><sl-badge variant="danger">High</sl-badge><p>${item.title}</p><p>${item.date}</p><p>${item.time}</p><br><hr>`;
+        } else if (item.impact === 'Medium') {
+            div.innerHTML = `<br><br><sl-badge variant="warning">Medium</sl-badge><p>${item.title}</p><p>${item.date}</p><p>${item.time}</p><br><hr>`;
+        }
+        wednesdayData.appendChild(div);
+    });
+}
+
+if(thursday.length === 0) {
+    const div = document.createElement('div');
+    div.classList.add('calendarItem');
+    div.innerHTML = `<br><br><p>No events.</p><br><hr>`;
+    thursdayData.appendChild(div);
+} else {
+    thursday.forEach((item) => {
+        const div = document.createElement('div');
+        div.classList.add('calendarItem');
+        if (item.impact === 'High') {
+            div.innerHTML = `<br><br><sl-badge variant="danger">High</sl-badge><p>${item.title}</p><p>${item.date}</p><p>${item.time}</p><br><hr>`;
+        } else if (item.impact === 'Medium') {
+            div.innerHTML = `<br><br><sl-badge variant="warning">Medium</sl-badge><p>${item.title}</p><p>${item.date}</p><p>${item.time}</p><br><hr>`;
+        }
+        thursdayData.appendChild(div);
+    });
+}
+
+if (friday.length === 0) {
+    const div = document.createElement('div');
+    div.classList.add('calendarItem');
+    div.innerHTML = `<br><br><p>No events.</p><br><hr>`;
+    fridayData.appendChild(div);
+} else {
+    friday.forEach((item) => {
+        const div = document.createElement('div');
+        div.classList.add('calendarItem');
+        if (item.impact === 'High') {
+            div.innerHTML = `<br><br><sl-badge variant="danger">High</sl-badge><p>${item.title}</p><p>${item.date}</p><p>${item.time}</p><br><hr>`;
+        } else if (item.impact === 'Medium') {
+            div.innerHTML = `<br><br><sl-badge variant="warning">Medium</sl-badge><p>${item.title}</p><p>${item.date}</p><p>${item.time}</p><br><hr>`;
+        }
+        fridayData.appendChild(div);
+    });
+}
