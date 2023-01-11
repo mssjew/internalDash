@@ -589,7 +589,71 @@ filteredData.forEach((item) => {
     item.time = date.toLocaleTimeString();
 });
 
-console.log(filteredData);
+
+//convert date string to dd mm yyyy format
+filteredData.forEach((item) => {
+    const date = item.date.split('-');
+    const year = date[0];
+    const month = date[1];
+    const day = date[2];
+    item.date = `${day}/${month}/${year}`;
+});
+
+
+
+// filteredData.forEach((item) => {
+//     const date = item.date.split('/');
+//     const day = parseInt(date[0]);
+//     const month = parseInt(date[1]-1);
+//     const year = parseInt(date[2]);
+//     const time = item.time.split(':');
+//     const hours = parseInt(time[0]);
+//     const minutes = parseInt(time[1]);
+//     const seconds = parseInt(time[2]);
+//     const dateTime = new Date(year, month, day, hours, minutes, seconds);
+//     const now = new Date();
+//     console.log(dateTime);
+//     if (dateTime < now) {
+//         item.title = `${item.title}*`;
+//     }
+// });
+
+
+
+// if a time and date is in the past then make the formatting strikethrough
+filteredData.forEach((item) => {
+    const date = item.date.split('/');
+    const day = parseInt(date[0]);
+    const month = parseInt(date[1]-1);
+    const year = parseInt(date[2]);
+    const time = item.time.split(':');
+    const hours = parseInt(time[0]);
+    const minutes = parseInt(time[1]);
+    const seconds = parseInt(time[2]);
+    const dateTime = new Date(year, month, day, hours, minutes, seconds);
+    const now = new Date();
+    if (dateTime < now) {
+        item.title = `<s>${item.title}</s>`;
+
+    }
+});
+
+
+
+
+//add eight hours to time 
+filteredData.forEach((item) => {
+    const time = item.time.split(':');
+    const hours = parseInt(time[0]);
+    const minutes = parseInt(time[1]);
+    const seconds = parseInt(time[2]);
+    const date = new Date(2023, 0, 13, hours, minutes, seconds);
+    date.setHours(date.getHours() + 8);
+    item.time = date.toLocaleTimeString();
+});
+
+
+
 
 
 const calendarDiv = document.getElementById('calendarData');
