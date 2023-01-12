@@ -673,10 +673,12 @@ filteredData.forEach((item) => {
   const month = parseInt(date[1] - 1);
   const year = parseInt(date[2]);
   const time = item.time.split(":");
-  const hours = parseInt(time[0]);
+  let hours = parseInt(time[0]);
   const minutes = parseInt(time[1]);
-  const seconds = parseInt(time[2]);
-  const dateTime = new Date(year, month, day, hours, minutes, seconds);
+  const zone = time[2].split(" ")[1];
+  if (zone === "PM") { hours += 12; };
+  const dateTime = new Date(year, month, day, hours, minutes, 0);
+  console.log(dateTime);
   const now = new Date();
   if (dateTime < now) {
     item.title = `<s style="color:gray">${item.title}</s>`;
